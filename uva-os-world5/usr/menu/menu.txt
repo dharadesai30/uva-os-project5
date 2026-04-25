@@ -1,0 +1,15 @@
+# example menu.cfg
+# lines start with '#' is a comment line
+#
+# a line starts with @ is the title of a menu item
+#   the lines right after it will be executed in sequence, until the next menu item line
+#
+
+@nes
+# execute one nes and a sysmon
+nes1 -- 0 0 &
+sysmon -- 500 0 &
+
+@nes2
+nes1 -- 0 0 &
+nes1 -- 100 100 &

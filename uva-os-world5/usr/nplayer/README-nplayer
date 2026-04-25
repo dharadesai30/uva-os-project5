@@ -1,0 +1,7 @@
+ogg music player, depends on 
+    libvorbis (ogg decoding)
+    libminisdl (sound play abstraction)
+    libc (newlib)
+
+idea: https://github.com/NJU-ProjectN/navy-apps/tree/master/apps/nplayer
+strip UI 

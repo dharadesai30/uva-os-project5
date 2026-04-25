@@ -1,0 +1,8 @@
+system monitor, visualize hw resource util on display
+    -cpu util (multicore)
+    -mem util 
+    - (more?)
+
+dependency:     
+    libminisdl (sound play abstraction)
+    libc (newlib)

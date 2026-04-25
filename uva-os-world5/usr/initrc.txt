@@ -1,0 +1,76 @@
+#
+# to be read by sh.c and exec per line
+# 
+
+# nes2
+
+# two nes instances, overlapped
+# nes1 -- 0 0 &
+# nes1 -- 100 100
+# blockchain 4
+# doom -timedemo demo1
+
+# mplayer /d/music/
+
+#menu
+#slider
+
+###################
+# nes8, asap, quiet
+#nes1 -- 0 0 --target-fps 9999 > /dev/null &
+#nes1 -- 512 0 --target-fps 9999 > /dev/null &
+#nes1 -- 256 0 --target-fps 9999 > /dev/null &
+#nes1 -- 768 0 --target-fps 9999 > /dev/null &
+
+#nes1 -- 0 250 --target-fps 9999 > /dev/null &
+#nes1 -- 512 250 --target-fps 9999 > /dev/null &
+#nes1 -- 256 250 --target-fps 9999 > /dev/null &
+#nes1 -- 768 250 --target-fps 9999 > /dev/null &
+
+#sysmon -- 600 600 &
+
+###################
+# nes8, asap
+#nes1 -- 0 0 --target-fps 9999  &
+#nes1 -- 256 0 --target-fps 9999 &
+#nes1 -- 512 0 --target-fps 9999 &
+#nes1 -- 768 0 --target-fps 9999 &
+
+#nes1 -- 0 250 --quiet &
+#nes1 -- 256 250 --quiet &
+#nes1 -- 512 250 --quiet &
+#nes1 -- 768 250 --quiet &
+###################
+
+#doom -timedemo demo1
+#doom -playdemo demo1
+
+#nes
+#nes1
+#nes1 -- 0 0 --target-fps 9999 
+#menu
+#mplayer /d/music/
+#sliderplus /d/slides
+#slider
+
+#gifdec-ex /d/eglite.gif
+# works
+#gifdec-ex /d/8mario-qemu.gif
+#gifdec-ex /d/cat-typing.gif
+#gifdec-ex /cat-typing.gif
+
+#mpg short.mpg
+#mpg short.mpg --preload
+
+#mpg /d/ski-15s-720p.mpg --preload
+
+#mpg /d/akira.mpg
+#mpg /d/akira.mpg --preload
+
+#mpg /d/gomen.mpg
+#mpg /d/gomen.mpg --preload
+#mpg /d/gomen1min.mpg --preload
+
+#mpg /d/short.mpg --preload
+#mpg /d/short.mpg
+

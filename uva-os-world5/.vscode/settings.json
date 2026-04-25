@@ -1,0 +1,69 @@
+{
+    "files.exclude": {
+        "kernel/addon/usb/**": true,  // usb 
+        "*.o": true,
+        "*.d": true,
+    }, 
+    "search.exclude": {
+        "kernel/addon/usb/**": true,  // usb 
+        // "*/*.asm": true,
+        ".*": true,
+        "*.o": true,
+        "*.d": true,        
+        "*.sym": true,
+        "*.dis": true,
+    },
+    "C_Cpp.exclusionPolicy": "checkFilesAndFolders",
+    "editor.rulers": [
+          80,  // 2nd ruler with no color option        
+     ],     
+    // https://stackoverflow.com/questions/42307949/color-theme-for-vs-code-integrated-terminal
+     // (more colors)
+     "workbench.colorCustomizations" : {
+      "terminal.foreground" : "#dddad6",
+      "terminal.background" : "#000000"   // 383737
+      "titleBar.activeBackground": "#426cf5ad" // ... to differentiate agasint hosts...
+  },
+  // more terminal appearance https://code.visualstudio.com/docs/terminal/appearance
+  "terminal.integrated.fontFamily" : "'Consolas', monospace",
+  "[ARM]": {
+    "editor.autoClosingBrackets": "never"
+  },
+  "[asm]": {
+    "editor.autoClosingBrackets": "never"
+  },    
+  "[markdown]": {
+  "editor.wordWrap": "on",
+  "editor.wordWrapColumn": 80
+  },
+  "todo-tree.general.tags": [
+      "quest",
+      "!STUDENT_W",
+      "STUDENT_TODO"
+      // "xzl"
+      ],
+  // https://marketplace.visualstudio.com/items?itemName=Gruntfuggly.todo-tree
+  "todo-tree.highlights.customHighlight": {
+      "quest": {
+          "icon": "question",  // https://octicons.github.com/
+          "type": "line",     // highlights the entire line containing the tag
+          "foreground": "red",
+          "background": "yellow",
+          "iconColour": "blue"
+      },
+      "STUDENT_TODO": {
+          "icon": "checklist",
+          "type": "line",     // highlights the entire line containing the tag
+          "foreground": "black",
+          "background": "yellow",
+          "iconColour": "black"
+      },
+      "!STUDENT_W": {
+          // "icon": "circle-slash",
+          "type": "tag",
+          "foreground": "orange",
+          "background": "black",
+          // "iconColour": "blue"
+      }
+  }
+}

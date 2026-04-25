@@ -1,0 +1,21 @@
+depends on libc (newlib)
+
+idea: From https://github.com/NJU-ProjectN/navy-apps/tree/master/libs
+
+
+// fxl: from NJU project. the choice of SDL interfaces seems good. 
+// the plan is to implement the same SDL interface atop our kernel, 
+// then build/port apps atop the SDL interface
+
+// in impl, we refer back to SDL API defs. 
+
+// these lib depends on libc (in our case, newlib). not xv6's ulib 
+
+doom-sdl may require some SDL APIs not impelmented here, but the mapping 
+should be easy. 
+
+
+the API of update texture, then update rendering target with texture ....
+results in additional buffering. why not direct rendering to the render target???
+
+but that's how doom is written and how API works. so ok as of now. 

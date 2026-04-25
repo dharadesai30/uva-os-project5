@@ -1,0 +1,10 @@
+ogg decoder, depends on libc (newlib)
+
+Took code from https://github.com/nothings/stb/blob/master/stb_vorbis.c 
+(v1.22 Apr 2024)
+then manually split into .h and .c 
+
+idea: 
+https://github.com/NJU-ProjectN/navy-apps/tree/master/libs/libvorbis
+and 
+https://github.com/NJU-ProjectN/navy-apps/tree/master/apps/nplayer

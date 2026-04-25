@@ -1,0 +1,18 @@
+a graphic shell that executes sh commands based on user selection 
+
+purpose: for the demo scenario, to support app launch from display and gamehat
+(/dev/events), whereas "sh" only supports uart console which demo lacks 
+
+feature: 
+- can interpret a line of shell commands (not only supports launch of a
+single program (as in NJU OS menu))
+- read from a config file (optional)
+
+dependency: 
+libc(newlib),libminisdl, /dev/events, usbkb or gamehat 
+
+reference: 
+NJU OS menu
+https://github.com/NJU-ProjectN/navy-apps/blob/master/apps/menu/menu.cpp
+
+
