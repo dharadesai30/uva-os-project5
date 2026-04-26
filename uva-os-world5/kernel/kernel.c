@@ -148,7 +148,7 @@ void kernel_main() {
     fileinit();      // file table
 	ramdisk_init(); 	// ramdisk - blk dev1
 	sys_timer_init(); 		// kernel timer: delay, timekeeping...
-	/* STUDENT_TODO: your code here */
+	sd_init();          //SD card -blk dev
 	enable_interrupt_controller(0/*coreid*/);
 	enable_irq();
 	

@@ -567,7 +567,7 @@ unsigned long sd_dev_get_sect_count(int dev) {
 }
 
 unsigned long sd_get_sect_size() {
-    return 0; /* STUDENT_TODO: replace this */
+    return 512; /* STUDENT_TODO: replace this */
 }
 
 static int sd_part_writeblock(int part, 
@@ -579,8 +579,9 @@ static int sd_part_writeblock(int part,
     if (lba+num > the_mbr.Partition[part].NumberOfSectors)
         return 0;
 
-    return sd_writeblock(buffer,
-        0, /* STUDENT_TODO: replace this */
+    return sd_writeblock(
+        buffer,
+        the_mbr.Partition[part].LBAFirstSector + lba,
         num); 
 }
 
@@ -593,7 +594,7 @@ static int sd_part_readblock(int part,
         return 0;
 
     return sd_readblock(
-        0, /* STUDENT_TODO: replace this */
+        the_mbr.Partition[part].LBAFirstSector + lba,
         buffer, num);
 }
 
@@ -610,9 +611,9 @@ void sd_part_rw(int part, struct buf *b, int write) {
     // change to irq driven and take sleeplock() instead
     acquire(&sd_lock); 
     if (write)
-        ret = sd_part_writeblock(0,0,0,1); /* STUDENT_TODO: replace this */
+        ret = sd_part_writeblock(part, (unsigned char *)b->data, sec_no, 1); /* STUDENT_TODO: replace this */
     else 
-        ret = sd_part_readblock(0,0,0,1); /* STUDENT_TODO: replace this */
+        ret = sd_part_readblock(part, sec_no, (unsigned char *)b->data, 1); /* STUDENT_TODO: replace this */
     release(&sd_lock); 
     if (!ret) {
         E("sd_part_rw failed sec_no %u write %d", sec_no, write); BUG(); 

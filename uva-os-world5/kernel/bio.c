@@ -112,7 +112,7 @@ bread(uint dev, uint blockno)
       virtio_disk_rw(b, 0);
 #endif
     else if (is_sddev(dev)) { // device is an SD card
-      sd_part_rw(sd_dev_to_part(dev), 0, 0); /* STUDENT_TODO: replace this */
+      sd_part_rw(sd_dev_to_part(dev), b, 0); /* STUDENT_TODO: replace this */
     }
     else 
       BUG(); 
@@ -135,7 +135,7 @@ bwrite(struct buf *b)
     virtio_disk_rw(b, 1);
 #endif    
   else if (is_sddev(b->dev)) { // device is an SD card
-    sd_part_rw(sd_dev_to_part(0), 0, 1); /* STUDENT_TODO: replace this */
+    sd_part_rw(sd_dev_to_part(0), b, 1); /* STUDENT_TODO: replace this */
   }
   else
     BUG(); 
@@ -213,10 +213,11 @@ DRESULT disk_read(BYTE drv, BYTE *buff, DWORD sector, UINT count)
     struct buf *bp; 
     uint dev = drv;     
     for (unsigned int i = 0; i < count; i++) {
-      if (!(bp = bread(dev, 0))) { /* STUDENT_TODO: replace this */
-          return RES_ERROR; 
+      bp = bread(dev, sector + i);
+      if (!bp) {
+        return RES_ERROR;  
       }
-      memmove(0, 0, BSIZE); /* STUDENT_TODO: replace this */
+      memmove(buff + i * BSIZE, bp->data, BSIZE); /* STUDENT_TODO: replace this */
       brelse(bp);
     }
     return RES_OK; 
@@ -228,17 +229,21 @@ DRESULT disk_write(BYTE drv, const BYTE *buff, DWORD sector, UINT count)
     struct buf *bp; 
     uint dev = drv; 
     unsigned int i; 
+
     for (i = 0; i < count; i++) {
-      if ((bp = bget(dev, 0))) { /* STUDENT_TODO: replace this */
-        memmove(0, 0, BSIZE); /* STUDENT_TODO: replace this */
-        bwrite(0); /* STUDENT_TODO: replace this */
+      bp = bget(dev, sector + i);
+      if (bp) {
+        memmove(bp->data, buff + i * BSIZE, BSIZE);
+        bwrite(bp);
         brelse(bp);
-      } else 
-        break;         
+      } else {
+        break;
+      }
     }
+
     if (i == count) return RES_OK;
     return RES_ERROR;      
-}
+}}
 
 /* Miscellaneous Functions */
 extern unsigned long sd_dev_get_sect_count(int dev);   // sd.c
