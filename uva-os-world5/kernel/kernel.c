@@ -84,6 +84,9 @@ void secondary_core(int core_id)
 	// and enable irq for this core 
 	 
 	/* STUDENT_TODO: your code here */
+	enable_interrupt_controller(core_id);
+	generic_timer_init();
+	enable_irq();
 
 	// so far, on boot stack and as the "idle" task
 	schedule(); 
@@ -100,7 +103,9 @@ static void start_secondary_cores(void) {
 	// their corresponding core_flags.
 	 
 	/* STUDENT_TODO: your code here */
-
+	for (int i = 1; i < NCPU; i++){
+		core_flags[i] = VA2PA((unsigned long)&_start);
+	}
 	// cpu0: Flush the whole kernel memory
 	// 1. make core_flags update visible to cpu1+ (which has no cache/mmu yet)
 	// 2. cpu1+ were down when cpu0 was init kernel state; so they might
@@ -158,6 +163,7 @@ void kernel_main() {
 #endif	
 	// start cpu1+
 	/* STUDENT_TODO: your code here */
+	start_secondary_cores();
 	generic_timer_init();  // sched ticks alive. preemptive scheduler is on
 
 	// now cpu is on its boot stack (boot.S) belonging to the idle task. 

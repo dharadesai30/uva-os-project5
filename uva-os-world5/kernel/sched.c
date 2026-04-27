@@ -290,9 +290,9 @@ void timer_tick() {
 
         // calculate cpu util %, update cp->last_util
         if ((cp->total++ % CPU_UTIL_INTERVAL) == CPU_UTIL_INTERVAL - 1) {
-             
-            /* STUDENT_TODO: your code here */
-        }
+             cp->last_util = cp->busy * 100 / CPU_UTIL_INTERVAL;
+             cp->busy = 0;
+            }
 
         acquire(&sched_lock); 
         if (cur->pid>=0 && --cur->credits > 0) { // cur task continues to exec
@@ -760,9 +760,10 @@ int move_to_user_mode(unsigned long start, unsigned long size, unsigned long pc)
     // (from xv6) File system initialization must be run in the context of a
     // regular process (e.g., because it calls sleep), and thus cannot
     // be run from main().
-    fsinit(ROOTDEV);
+fsinit(ROOTDEV);
+
 #ifdef CONFIG_FAT        
-	/* STUDENT_TODO: your code here */
+    fsinit(DEV_SD0);
 #endif    
 	
 	return 0;

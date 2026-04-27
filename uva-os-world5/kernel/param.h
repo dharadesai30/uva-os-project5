@@ -2,7 +2,7 @@
 
 // -------------- configuration -------------------------- //
 #define NOFILE          16  // open files per process 
-#define NCPU	        1   // # of cpu cores /* STUDENT_TODO: replace this */
+#define NCPU	        4   // # of cpu cores /* STUDENT_TODO: replace this */
 #define MAXPATH         128   // maximum file path name
 #define NINODE          50  // maximum number of active i-nodes
 // #define NDEV            10  // maximum major device number
