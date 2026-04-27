@@ -638,7 +638,7 @@ static void kb_task(int arg) {
             release(&the_kb.lock);I("%s quits", __func__);sys_exit(0);
         }
         
-        ev = the_kb.buf[the_kb.r % KB_BUF_SIZE];
+        ev = the_kb.buf[the_kb.r % INPUT_BUF_SIZE];
         the_kb.r++;
         release(&the_kb.lock);
 
@@ -669,9 +669,9 @@ static void kb_task(int arg) {
             V("ev: %s mod %04x scan %04x dispatch to: pid %d", 
                 ev.type?"KEYUP":"KEYDOWN", ev.mod, ev.scancode, top->pid); 
 
-            if (((top->kb.w + 1) % KB_BUF_SIZE) != top->kb.r) {
-                top->kb.buf[top->kb.w % KB_BUF_SIZE] = ev;
-                top->kb.w = (top->kb.w + 1) % KB_BUF_SIZE;
+            if (((top->kb.w + 1) % INPUT_BUF_SIZE) != top->kb.r) {
+                top->kb.buf[top->kb.w % INPUT_BUF_SIZE] = ev;
+                top->kb.w = (top->kb.w + 1) % INPUT_BUF_SIZE;
                 wakeup(&top->kb.r);
             } else {
                 W("surface kb buffer full, dropping event");
@@ -712,8 +712,8 @@ int kb0_read(int user_dst, uint64 dst, int off, int n, char blocking, void *cont
 
         if (n < TXTSIZE) break;
 
-        ev = kb->buf[kb->r % KB_BUF_SIZE];
-        kb->r = (kb->r + 1) % KB_BUF_SIZE;
+        ev = kb->buf[kb->r % INPUT_BUF_SIZE];
+        kb->r = (kb->r + 1) % INPUT_BUF_SIZE;
 
         int len = snprintf(ev_txt, TXTSIZE, "%s 0x%02x\n", 
             ev.type == KEYDOWN ? "kd":"ku", ev.scancode); 
