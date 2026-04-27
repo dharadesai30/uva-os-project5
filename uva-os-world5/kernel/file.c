@@ -503,7 +503,7 @@ int procfs_gen_content(int major, char *txtbuf, int sz) {
             // XXX probably need certain locks for cpu::last_util
             char *p = txtbuf; int ll; 
             for (int i = 0; i<NCPU; i++) {                
-                ll = snprintf(p, sz, "%d ", -1); /* STUDENT_TODO: replace this */
+                ll = snprintf(p, sz, "%d ", cpus[i].last_util); /* STUDENT_TODO: replace this */
                 len += ll; sz -= ll; p += ll; 
             }
             ll = snprintf(p, sz, "\n"); 

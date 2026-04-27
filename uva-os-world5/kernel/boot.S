@@ -107,13 +107,14 @@ el1_entry:
 
 	// Below: executed by all cpus
 setup_sp: 	
-	// Set virt sp = (cpuid_reg+1)*4096 + boot_stacks
+	// Set virt sp = boot_stacks + (cpuid + 1)*THREAD_SIZE
 	// (assuming linear mapping, phys 0 --> virt VA_START)	
 	 
 	/* STUDENT_TODO: your code here */
-
-	mov x0, #(PAGE_SIZE) /* STUDENT_TODO: replace this */
-	ldr x1, =boot_stacks /* STUDENT_TODO: replace this */
+	ldr x1, =boot_stacks
+	mov x0, cpuid_reg, #1/* STUDENT_TODO: replace this */
+	ldr x2, =THREAD_SIZE /* STUDENT_TODO: replace this */
+	mul x0, x0, x2
 	add x0, x0, x1 /* STUDENT_TODO: replace this */
 
 	mov sp, x0 		// NB: we aren't use sp yet -- until mmu is on
@@ -144,20 +145,13 @@ setup_sp:
 	// below: cpu0 and cpu1+ jump to their respective code
 	cmp cpuid_reg, #0
 	b.eq 1f
-	// cpu1+, the code entry is secondary_core_asm. 
-	// load the linking (virt) addr of the entry to x2, 
-	// turn on MMU, and jump to the entry
-	 
-	/* STUDENT_TODO: your code here */
+
+	ldr x2, =secondary_core_asm
+	ldr x0, =SCTLR_VALUE
+	msr sctlr_el1, x0
+	isb
 	br 	x2
-
-1:
-	// cpu0 only, load the linking (virt) addr of kernel_main
-	ldr	x2, =kernel_main  
-	ldr x0, =SCTLR_VALUE // Turn on MMU. cf sysregs.h
-	msr	sctlr_el1, x0	// BOOM! after this, this core runs on virtual addr
-	br 	x2				// Jump to kernel_main() (kernel.c)
-
+	
 secondary_core_asm:	
 	mov x0, cpuid_reg
 	bl secondary_core
